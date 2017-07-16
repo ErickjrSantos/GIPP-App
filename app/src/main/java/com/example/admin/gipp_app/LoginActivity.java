@@ -3,6 +3,8 @@ package com.example.admin.gipp_app;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -63,11 +65,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
-    private ConnectionBank conn;
+    //private ConnectionBank conn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        conn.connect();
+      //  conn.connect();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
@@ -89,10 +91,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         Button mEmailSignInButton = (Button) findViewById(R.id.sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
+
             public void onClick(View view) {
-                String dois=null;
-                Toast teste = new Toast("teste",20);
-                teste.show();
+                String text = "Teste!";
+                int time = Toast.LENGTH_SHORT;
+                Context context = getApplicationContext();
+                Toast message = Toast.makeText(context,text,time);
+                message.show();
+                Intent vaiProMain = new Intent(LoginActivity.this,MainActivity.class);
+                startActivity(vaiProMain);
+
                 attemptLogin();
             }
         });
