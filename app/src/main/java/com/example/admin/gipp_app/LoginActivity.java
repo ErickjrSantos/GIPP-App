@@ -93,11 +93,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
 
             public void onClick(View view) {
-                String text = "Teste!";
-                int time = Toast.LENGTH_SHORT;
-                Context context = getApplicationContext();
-                Toast message = Toast.makeText(context,text,time);
-                message.show();
                 Intent vaiProMain = new Intent(LoginActivity.this,MainActivity.class);
                 startActivity(vaiProMain);
 
