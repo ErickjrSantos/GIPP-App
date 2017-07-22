@@ -3,9 +3,16 @@ package com.example.admin.gipp_app;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.admin.gipp_app.Modelo.Tarefa;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.List;
 
 import static android.widget.Toast.LENGTH_LONG;
 
@@ -16,33 +23,27 @@ import static android.widget.Toast.LENGTH_LONG;
 
 
 public class ConnectionBank {
-    private java.sql.Connection conn = null;
-    private Statement st;
-    private ResultSet rs;
-    private String sql;
+        private static final String URL_WEBSERVICE = "http://187.35.128.157:70/GerenciaTarefa/Tarefas";
 
-    public void connect(){
-       String porta = "3306";
-        String host = "192.168.0.221";
-        String banco = "pegpese";
-        String usuario = "admin";
-        String senha = "admin";
+        public List<Tarefa> tarefa = new Tarefa() {
 
-        try{
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            HttpURLConnection connection = null;
 
+            try {
+                URL url = new URL(URL_WEBSERVICE);
 
-        } catch(Exception erro){
-            Log.e("MYSQL","Erro: "+erro);
-        }
+                connection = (HttpURLConnection)url.openConnection();
 
-        try{
-            conn= DriverManager.getConnection("jdbc:mysql://"+host+":"+porta+"/"+banco+"?connectTimeout=9000&socketTimeout=9000&autoReconnect=true&secondsBeforeRetryMaster=3",usuario,senha);
-            Log.i("MYSQL", "Conectado.");
-        } catch(Exception erro){
-            Log.e("MYSQL","Erro: "+erro);
+                InputStream content = connection.getInputStream();
+
+                return ;
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } finally {
+                connection.disconnect();
+            }
         }
     }
-
 
 }
