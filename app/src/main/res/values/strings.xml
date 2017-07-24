@@ -19,4 +19,5 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Configurações</string>
+    <string name="title_activity_formulario">Novo Projeto</string>
 </resources>
