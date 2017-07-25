@@ -19,6 +19,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.admin.gipp_app.Calendario.CalendarActivity;
+import com.example.admin.gipp_app.Connections.Connection;
 
 import java.util.ArrayList;
 
@@ -55,8 +56,10 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent vaiProFormulario = new Intent(MainActivity.this,FormularioActivity.class);
-                startActivity(vaiProFormulario);
+                //Intent vaiProFormulario = new Intent(MainActivity.this,FormularioActivity.class);
+                Connection conn =  new Connection();
+                conn.execute();
+               // startActivity(vaiProFormulario);
 
             }
         });
