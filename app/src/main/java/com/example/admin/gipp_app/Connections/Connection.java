@@ -1,33 +1,39 @@
 package com.example.admin.gipp_app.Connections;
 
-import android.os.AsyncTask;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import com.google.gson.Gson;
 
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by admin on 25/07/2017.
  */
 
-public class Connection extends AsyncTask {
-    private static final String URLlogin = "http://187.35.128.157:70/gerenciatarefas/src/login.php?login=";
+public class Connection {
 
-    @Override
-    protected Object doInBackground(Object[] objects) {
-        String u = "kyo";
-        String s = "5773";
+    public static final String URL = "http://192.168.0.221/android/login.php";
 
-        try {
-            URL url = new URL(URLlogin + u + "&senha=" + s);
-            HttpURLConnection conn =(HttpURLConnection)url.openConnection();
-            conn.connect();
+    public static <S> S createService(Class<S> serviceClass) {
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
+                .readTimeout(15, TimeUnit.SECONDS);
+        httpClient.addInterceptor(loggingInterceptor);
 
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-        }
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(URL)
+                .addConverterFactory(GsonConverterFactory.create(new Gson()))
+                .client(httpClient.build())
+                .build();
+        return  retrofit.create(serviceClass);
+
+    }
+
 
 }
 

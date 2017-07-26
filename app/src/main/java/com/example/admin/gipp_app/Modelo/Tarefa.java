@@ -13,6 +13,17 @@ public class Tarefa {
     private boolean concluido;
     private String descricao;
 
+    public Tarefa(){
+
+    }
+    public Tarefa(String nome, String projeto,boolean concluido){
+        super();
+        this.nome = nome;
+        this.projeto = projeto;
+        this.concluido = concluido;
+    }
+
+
     public String getDescricao() {
         return descricao;
     }

@@ -57,8 +57,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 //Intent vaiProFormulario = new Intent(MainActivity.this,FormularioActivity.class);
-                Connection conn =  new Connection();
-                conn.execute();
+
                // startActivity(vaiProFormulario);
 
             }

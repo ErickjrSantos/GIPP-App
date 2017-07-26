@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 
+import android.app.ListActivity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -30,8 +31,21 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
+import com.example.admin.gipp_app.Modelo.LoginDAO;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +55,8 @@ import static android.Manifest.permission.READ_CONTACTS;
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+
+
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -71,6 +87,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mUserView = (AutoCompleteTextView) findViewById(R.id.user);
@@ -88,15 +105,53 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
+
+
+
         Button mEmailSignInButton = (Button) findViewById(R.id.sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
+
             @Override
-
             public void onClick(View view) {
-                Intent vaiProMain = new Intent(LoginActivity.this,MainActivity.class);
-                startActivity(vaiProMain);
+                String url = "192.168.0.221:70/Android/login.php";
+                try {
+                    URL obj = new URL(url);
+                    HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+                    //envia POST
+                    con.setRequestMethod("POST");
 
-                attemptLogin();
+                    //dados POST
+                    String urlParameters = "user=" + mUserView + "&password=" + mPasswordView;
+
+                    //Cria POST
+                    con.setDoOutput(true);
+                    DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+                    wr.writeBytes(urlParameters);
+                    wr.flush();
+                    wr.close();
+
+                    int responseCode = con.getResponseCode();
+                    System.out.println("Codigo de resposta: " + responseCode);
+
+                    BufferedReader in = new BufferedReader(
+                            new InputStreamReader(con.getInputStream()));
+                    String inputLine;
+                    StringBuffer response = new StringBuffer();
+                    while ((inputLine = in.readLine()) != null) {
+                        response.append(inputLine);
+
+
+                    }
+                    Toast.makeText(LoginActivity.this,response,Toast.LENGTH_LONG).show();
+                    in.close();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+
+               // Intent vaiProMain = new Intent(LoginActivity.this,MainActivity.class);
+              //  startActivity(vaiProMain);
+
             }
         });
 
@@ -306,7 +361,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * the user.
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-
+       // public static final String URL = "http://192.168.0.221/android/login.php?";
         private final String mUser;
         private final String mPassword;
 
@@ -317,14 +372,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
 
             for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
