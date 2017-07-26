@@ -34,6 +34,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.admin.gipp_app.Connections.Connection;
 import com.example.admin.gipp_app.Modelo.LoginDAO;
 
 import org.apache.http.HttpResponse;
@@ -43,8 +44,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -113,40 +116,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             @Override
             public void onClick(View view) {
-                String url = "192.168.0.221:70/Android/login.php";
-                try {
-                    URL obj = new URL(url);
-                    HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-                    //envia POST
-                    con.setRequestMethod("POST");
+                Connection con = new Connection();
+                String user = mUserView.getText().toString();
+                String password = mPasswordView.getText().toString();
 
-                    //dados POST
-                    String urlParameters = "user=" + mUserView + "&password=" + mPasswordView;
+                     String vTeste = con.login(user,password);
+                Toast.makeText(LoginActivity.this,vTeste,Toast.LENGTH_LONG).show();
 
-                    //Cria POST
-                    con.setDoOutput(true);
-                    DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-                    wr.writeBytes(urlParameters);
-                    wr.flush();
-                    wr.close();
-
-                    int responseCode = con.getResponseCode();
-                    System.out.println("Codigo de resposta: " + responseCode);
-
-                    BufferedReader in = new BufferedReader(
-                            new InputStreamReader(con.getInputStream()));
-                    String inputLine;
-                    StringBuffer response = new StringBuffer();
-                    while ((inputLine = in.readLine()) != null) {
-                        response.append(inputLine);
-
-
-                    }
-                    Toast.makeText(LoginActivity.this,response,Toast.LENGTH_LONG).show();
-                    in.close();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
 
 
                // Intent vaiProMain = new Intent(LoginActivity.this,MainActivity.class);
