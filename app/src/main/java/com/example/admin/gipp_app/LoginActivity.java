@@ -51,6 +51,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -116,17 +117,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             @Override
             public void onClick(View view) {
+
                 Connection con = new Connection();
                 String user = mUserView.getText().toString();
                 String password = mPasswordView.getText().toString();
 
-                     String vTeste = con.login(user,password);
-                Toast.makeText(LoginActivity.this,vTeste,Toast.LENGTH_LONG).show();
+                String response;
+                try {
+                    response = con.execute(user,password).get().toString();
+                    Intent vaiProMain = new Intent(LoginActivity.this,MainActivity.class);
+                    startActivity(vaiProMain);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(LoginActivity.this,e.toString(),Toast.LENGTH_LONG).show();
+                }
 
 
-
-               // Intent vaiProMain = new Intent(LoginActivity.this,MainActivity.class);
-              //  startActivity(vaiProMain);
 
             }
         });

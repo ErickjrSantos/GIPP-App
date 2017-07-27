@@ -5,37 +5,38 @@ package com.example.admin.gipp_app.Modelo;
  */
 
 public class LoginDAO {
-    String senha;
+    String id;
     String nome;
-    String usuario;
+    private LoginDAO instance;
 
-   
-
-    public String getSenha() {
-        return senha;
+    public LoginDAO getInstance(String id, String nome){
+        if(instance == null)
+            instance = new LoginDAO();
+        instance.setId(id);
+        instance.setNome(nome);
+        return instance;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public LoginDAO getInstance(){
+        if(instance == null)
+            instance = new LoginDAO();
+        return instance;
     }
+
+    public String getId() { return id; }
+    private void setId(String id) { this.id = id; }
 
     public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
+    private void setNome(String nome) {
         this.nome = nome;
     }
 
 
 
-    public String getUsuario() {
-        return usuario;
-    }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
 
 
 
