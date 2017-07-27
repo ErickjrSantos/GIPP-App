@@ -1,10 +1,9 @@
 package com.example.admin.gipp_app;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.text.Html;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -36,15 +35,17 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
         setSupportActionBar(toolbar);
 
+       // LoginDAO nome = LoginDAO.getInstance();
+       // TextView tv = (TextView) findViewById(R.id.title_app_nave);
+       // tv.setText(nome.getNome());
+
+
+        //Lista de Tarefas
         ListView lista = (ListView) findViewById(R.id.listaDeProjetos);
-
         final ArrayList<String> projetos = preencherDados();
-
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, projetos);
-
         lista.setAdapter(arrayAdapter);
 
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {

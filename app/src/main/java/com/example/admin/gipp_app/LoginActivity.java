@@ -108,14 +108,25 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 Connection con = new Connection();
                 String user = mUserView.getText().toString();
                 String password = mPasswordView.getText().toString();
-
                 String response;
+
+
+
                 try {
                     response = con.execute(user,password).get().toString();
                     LoginDAO nome = LoginDAO.getInstance();
-                    Toast.makeText(LoginActivity.this,"Entrou como : " + nome.getNome(), Toast.LENGTH_LONG).show();
+
+                    if(nome.getResposta() == true){
                     Intent vaiProMain = new Intent(LoginActivity.this,MainActivity.class);
-                    startActivity(vaiProMain);
+                        Toast.makeText(LoginActivity.this,"Entrou como : " + nome.getNome(), Toast.LENGTH_LONG).show();
+                        startActivity(vaiProMain);
+
+
+
+
+                    }else{
+                        Toast.makeText(LoginActivity.this,"Usuario ou senha ERRADOS ", Toast.LENGTH_LONG).show();
+                    }
 
                 } catch (Exception e) {
                     e.printStackTrace();

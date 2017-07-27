@@ -20,7 +20,7 @@ import java.net.URL;
 
 public class Connection extends AsyncTask {
 
-    String url = "http://192.168.0.221:70/Android/login.php";
+    String url = "http://187.35.128.157:70/Android/login.php";
 
 
 
@@ -65,8 +65,10 @@ public class Connection extends AsyncTask {
 
                     JSONObject jsonObjt = new JSONObject(JsonStr);
                     String id = jsonObjt.getString("codigo");
-                   String nome = jsonObjt.getString("nome");
-                    LoginDAO user = LoginDAO.setInstance(id,nome);
+                    String nome = jsonObjt.getString("nome");
+                    String resposta = jsonObjt.getString("resposta");
+
+                    LoginDAO user = LoginDAO.setInstance(id,nome,resposta);
 
                     return user;
 

@@ -7,12 +7,14 @@ package com.example.admin.gipp_app.Modelo;
 public class LoginDAO {
     String id;
     String nome;
+    String resposta;
     private static LoginDAO instance;
 
-    public static LoginDAO setInstance(String id, String nome){
+    public static LoginDAO setInstance(String id, String nome,String resposta){
         instance = getInstance();
         instance.setId(id);
         instance.setNome(nome);
+        instance.setResposta(resposta);
         return instance;
     }
 
@@ -28,16 +30,14 @@ public class LoginDAO {
     public String getNome() {
         return nome;
     }
+    public Boolean getResposta() {
+        return resposta.equals("success");
+    }
 
     private void setNome(String nome) {
         this.nome = nome;
     }
 
 
-
-
-
-
-
-
+    public void setResposta(String resposta) {this.resposta = resposta; }
 }
