@@ -1,6 +1,7 @@
 package com.example.admin.gipp_app;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,10 +17,12 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.admin.gipp_app.Calendario.CalendarActivity;
 import com.example.admin.gipp_app.Connections.Connection;
+import com.example.admin.gipp_app.Modelo.LoginDAO;
 
 import java.util.ArrayList;
 
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
 
         ListView lista = (ListView) findViewById(R.id.listaDeProjetos);
@@ -62,6 +66,7 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

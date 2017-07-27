@@ -7,17 +7,16 @@ package com.example.admin.gipp_app.Modelo;
 public class LoginDAO {
     String id;
     String nome;
-    private LoginDAO instance;
+    private static LoginDAO instance;
 
-    public LoginDAO getInstance(String id, String nome){
-        if(instance == null)
-            instance = new LoginDAO();
+    public static LoginDAO setInstance(String id, String nome){
+        instance = getInstance();
         instance.setId(id);
         instance.setNome(nome);
         return instance;
     }
 
-    public LoginDAO getInstance(){
+    public static LoginDAO getInstance(){
         if(instance == null)
             instance = new LoginDAO();
         return instance;

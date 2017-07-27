@@ -37,21 +37,8 @@ import android.widget.Toast;
 import com.example.admin.gipp_app.Connections.Connection;
 import com.example.admin.gipp_app.Modelo.LoginDAO;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -125,12 +112,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 String response;
                 try {
                     response = con.execute(user,password).get().toString();
+                    LoginDAO nome = LoginDAO.getInstance();
+                    Toast.makeText(LoginActivity.this,"Entrou como : " + nome.getNome(), Toast.LENGTH_LONG).show();
                     Intent vaiProMain = new Intent(LoginActivity.this,MainActivity.class);
                     startActivity(vaiProMain);
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(LoginActivity.this,e.toString(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this,e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
                 }
 
 

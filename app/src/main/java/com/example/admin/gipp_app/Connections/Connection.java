@@ -2,7 +2,6 @@ package com.example.admin.gipp_app.Connections;
 
 import android.os.AsyncTask;
 
-
 import com.example.admin.gipp_app.Modelo.LoginDAO;
 
 import org.json.JSONObject;
@@ -29,7 +28,7 @@ public class Connection extends AsyncTask {
     @Override
     protected Object doInBackground(Object[] objects) {
 
-
+        StringBuffer response = new StringBuffer();
         try {
             URL obj = new URL(url);
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -55,22 +54,21 @@ public class Connection extends AsyncTask {
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(con.getInputStream()));
             String inputLine;
-            StringBuffer response = new StringBuffer();
+
             while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
-
+            in.close();
             String JsonStr = response.toString();
-            if(JsonStr != null){
+            if(JsonStr != null || JsonStr != ""){
                 try{
-                    LoginDAO login = new LoginDAO();
+
                     JSONObject jsonObjt = new JSONObject(JsonStr);
-                    String id = jsonObjt.getString("id");
+                    String id = jsonObjt.getString("codigo");
                    String nome = jsonObjt.getString("nome");
+                    LoginDAO user = LoginDAO.setInstance(id,nome);
 
-                    login.getInstance(id,nome);
-
-
+                    return user;
 
                 }catch (Exception e){
                     e.printStackTrace();
@@ -78,19 +76,11 @@ public class Connection extends AsyncTask {
             }
 
 
-
-
-
-
-            in.close();
-            return response;
-
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+
         }
 
-
-
+        return "1234";
     }
 }
