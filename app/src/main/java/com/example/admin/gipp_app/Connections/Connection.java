@@ -2,7 +2,7 @@ package com.example.admin.gipp_app.Connections;
 
 import android.os.AsyncTask;
 
-import com.example.admin.gipp_app.Modelo.LoginDAO;
+import com.example.admin.gipp_app.Modelo.Login;
 
 import org.json.JSONObject;
 
@@ -21,9 +21,6 @@ import java.net.URL;
 public class Connection extends AsyncTask {
 
     String url = "http://187.35.128.157:70/Android/login.php";
-
-
-
 
     @Override
     protected Object doInBackground(Object[] objects) {
@@ -68,7 +65,7 @@ public class Connection extends AsyncTask {
                     String nome = jsonObjt.getString("nome");
                     String resposta = jsonObjt.getString("resposta");
 
-                    LoginDAO user = LoginDAO.setInstance(id,nome,resposta);
+                    Login user = Login.setInstance(id,nome,resposta);
 
                     return user;
 

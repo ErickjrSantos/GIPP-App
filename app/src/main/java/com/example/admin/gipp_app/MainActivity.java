@@ -3,7 +3,6 @@ package com.example.admin.gipp_app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.text.Html;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,15 +15,16 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.admin.gipp_app.BancoLite.ProjetoLiteDAO;
 import com.example.admin.gipp_app.Calendario.CalendarActivity;
-import com.example.admin.gipp_app.Connections.Connection;
-import com.example.admin.gipp_app.Modelo.LoginDAO;
+import com.example.admin.gipp_app.Connections.ConnectionListProjetos;
+import com.example.admin.gipp_app.Modelo.Login;
+import com.example.admin.gipp_app.Modelo.Projeto;
 
 import java.util.ArrayList;
-
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity
@@ -37,23 +37,18 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-       // LoginDAO nome = LoginDAO.getInstance();
-       // TextView tv = (TextView) findViewById(R.id.title_app_nave);
-       // tv.setText(nome.getNome());
+
+        ConnectionListProjetos prolist = new ConnectionListProjetos();
+        Login lg = Login.getInstance();
+        prolist.execute(lg.getId());
 
 
-        //Lista de Tarefas
-        ListView lista = (ListView) findViewById(R.id.listaDeProjetos);
-        final ArrayList<String> projetos = preencherDados();
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, projetos);
-        lista.setAdapter(arrayAdapter);
+        //Lista de Projetos
 
-        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(),"projeto: "+projetos.get(i).toString(),Toast.LENGTH_LONG).show();
-            }
-        });
+
+
+
+
 
 
 
@@ -66,7 +61,14 @@ public class MainActivity extends AppCompatActivity
                // startActivity(vaiProFormulario);
 
             }
+
+
+
+
+
         });
+
+
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -81,25 +83,39 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-    }
 
-    private ArrayList<String> preencherDados() {
-        ArrayList<String> dados = new ArrayList<String>();
-        dados.add("teste1");
-        dados.add("teste2");
-        dados.add("teste3");
-        dados.add("teste4");
-        dados.add("teste5");
-        dados.add("teste6");
-        dados.add("teste10");
-        dados.add("teste20");
-        dados.add("teste30");
-        dados.add("teste40");
-        dados.add("teste50");
-        dados.add("teste60");
-        return dados;
+
 
     }
+
+
+
+    public void carregaLista(){
+        ConnectionListProjetos dao = new ConnectionListProjetos();
+
+
+        dao.execute(Login.getInstance().getId());
+
+        List<Projeto> projestos = dao.projetos;
+
+               String teste = projestos.get(2).toString();
+
+
+        ListView listaProjetos = (ListView) findViewById(R.id.listaDeProjetos);
+        ArrayAdapter<Projeto> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, projestos);
+        listaProjetos.setAdapter(arrayAdapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        carregaLista();
+    }
+
+    /*private List<Projeto> preencherDados() {
+        ProjetoLiteDAO dao = new  ProjetoLiteDAO(this);
+        return dao.buscaProjetos();
+    }*/
 
 
     @Override

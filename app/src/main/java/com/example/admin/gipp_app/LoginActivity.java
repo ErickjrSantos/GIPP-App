@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -35,10 +34,13 @@ import android.widget.Toast;
 
 
 import com.example.admin.gipp_app.Connections.Connection;
-import com.example.admin.gipp_app.Modelo.LoginDAO;
+import com.example.admin.gipp_app.Connections.ConnectionListProjetos;
+import com.example.admin.gipp_app.Modelo.Login;
+import com.example.admin.gipp_app.Modelo.Projeto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -114,7 +116,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                 try {
                     response = con.execute(user,password).get().toString();
-                    LoginDAO nome = LoginDAO.getInstance();
+                    Login nome = Login.getInstance();
 
                     if(nome.getResposta() == true){
                     Intent vaiProMain = new Intent(LoginActivity.this,MainActivity.class);
@@ -356,13 +358,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected Boolean doInBackground(Void... params) {
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mUser)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
+
 
             // TODO: register the new account here.
             return true;
