@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class Projeto implements Serializable{
 
     private  int id;
-    private   String nomeProjeto;
+    private  String nomeProjeto;
     private  int quantTarefas;
     private  double progresso;
 

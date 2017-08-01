@@ -25,12 +25,19 @@ public class FormularioActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        int id = item.getItemId();
+        if(id == R.menu.menu_formulario){
+            Toast.makeText(FormularioActivity.this,"Salvo",Toast.LENGTH_LONG);
+            finish();
+        }
+
+        /*switch (item.getItemId()){
             case R.menu.menu_formulario:
                 Toast.makeText(FormularioActivity.this,"Salvo",Toast.LENGTH_SHORT).show();
                 finish();
                 break;
-        }
+
+        }*/
         return super.onOptionsItemSelected(item);
     }
 }

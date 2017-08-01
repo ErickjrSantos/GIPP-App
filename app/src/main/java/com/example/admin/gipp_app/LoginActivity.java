@@ -3,20 +3,17 @@ package com.example.admin.gipp_app;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
-
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -31,17 +28,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
 import com.example.admin.gipp_app.Connections.Connection;
-import com.example.admin.gipp_app.Connections.ConnectionListProjetos;
 import com.example.admin.gipp_app.Modelo.Login;
-import com.example.admin.gipp_app.Modelo.Projeto;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
@@ -111,8 +101,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                     if(nome.getResposta() == true){
                     Intent vaiProMain = new Intent(LoginActivity.this,MainActivity.class);
+
                         Toast.makeText(LoginActivity.this,"Entrou como : " + nome.getNome(), Toast.LENGTH_LONG).show();
                         startActivity(vaiProMain);
+
 
                     }else{
                         Toast.makeText(LoginActivity.this,"Usuario ou senha ERRADOS ", Toast.LENGTH_LONG).show();

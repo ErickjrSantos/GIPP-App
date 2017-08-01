@@ -23,7 +23,7 @@ public class ProjetoLiteDAO extends SQLiteOpenHelper {
         super(context,"Projetos",null, 1);
 
     }
-    private  long id;
+    private  long   id;
     private  String nomeProjeto;
     private  int    quantTarefas;
     private  int    progresso;
@@ -41,17 +41,43 @@ public class ProjetoLiteDAO extends SQLiteOpenHelper {
         onCreate(db);
 
     }
-    public  void insereProjeto(Projeto projeto){
+    public void insereProjeto(Projeto projeto){
+        SQLiteDatabase db = getWritableDatabase();
+        if(!existeNoBanco(projeto.getId())) {
+            ContentValues dados = new ContentValues();
+            dados.put("id", projeto.getId());
+            dados.put("nomeProjeto", projeto.getNomeProjeto());
+            dados.put("quantTarefas", projeto.getQuantTarefas());
+            dados.put("progresso", projeto.getProgresso());
+            db.insert("Projetos", null, dados);
+        }
+    }
+    public void insereProjeto(ArrayList<Projeto> projetos){
         SQLiteDatabase db = getWritableDatabase();
 
-        ContentValues dados = new ContentValues();
-        dados.put("id",projeto.getId());
-        dados.put("nomeProjeto",projeto.getNomeProjeto());
-        dados.put("quantTarefas",projeto.getQuantTarefas());
-        dados.put("progresso",projeto.getProgresso());
-        db.insert("Projetos",null,dados);
+        for(int i=0; i < projetos.size(); i++) {
+            Projeto projeto = projetos.get(i);
+            if(!existeNoBanco(projeto.getId())) {
+                ContentValues dados = new ContentValues();
+                dados.put("id", projeto.getId());
+                dados.put("nomeProjeto", projeto.getNomeProjeto());
+                dados.put("quantTarefas", projeto.getQuantTarefas());
+                dados.put("progresso", projeto.getProgresso());
+                db.insert("Projetos", null, dados);
+            }
+        }
 
     }
+  private boolean existeNoBanco(int id){
+      String sql = "SELECT id FROM Projetos WHERE id=" +id;
+      SQLiteDatabase db = getReadableDatabase();
+      Cursor c = db.rawQuery(sql,null);
+
+      return c.getCount()>0;
+    }
+
+
+
     public List<Projeto> buscaProjetos(){
         String sql = "SELECT * FROM Projetos";
         SQLiteDatabase db = getReadableDatabase();

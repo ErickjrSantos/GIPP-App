@@ -26,8 +26,9 @@
                 android:hint="Prazo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-            <EditText
-                android:hint="Projeto"
+            <Spinner
+                android:id="@+id/comboBox"
+                android:hint="Unidade"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <EditText

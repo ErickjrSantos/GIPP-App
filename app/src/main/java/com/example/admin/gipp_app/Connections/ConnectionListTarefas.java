@@ -1,47 +1,39 @@
 package com.example.admin.gipp_app.Connections;
 
-
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
-import android.util.Log;
 
-import com.example.admin.gipp_app.BancoLite.ProjetoLiteDAO;
-import com.example.admin.gipp_app.MainActivity;
-import com.example.admin.gipp_app.Modelo.Login;
-import com.example.admin.gipp_app.Modelo.Projeto;
+import com.example.admin.gipp_app.Modelo.Tarefa;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
-
 
 /**
- * Created by admin on 29/07/2017.
+ * Created by admin on 01/08/2017.
  */
 
-public class ConnectionListProjetos extends AsyncTask {
+public class ConnectionListTarefas extends AsyncTask {
 
-    String url = "http://187.35.128.157:70/Android/projetos.php";
+    String url = "http://187.35.128.157:70/Android/tarefasProjeto.php";
 
-    public ArrayList<Projeto> projetos = new ArrayList<>();
+    public ArrayList<Tarefa> tarefas = new ArrayList<>();
 
     StringBuffer response = new StringBuffer();
 
     @Override
-    protected ArrayList<Projeto> doInBackground(Object[] objects) {
+    protected ArrayList<Tarefa> doInBackground(Object[] objects) {
         try {
             URL obj = new URL(url);
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
             con.setRequestMethod("POST");
 
-            String urlParameters = "userid=" + objects[0];
+            String urlParameters = "id=" + objects[0];
 
             con.setDoOutput(true);
             DataOutputStream wr = new DataOutputStream(con.getOutputStream());
@@ -67,42 +59,43 @@ public class ConnectionListProjetos extends AsyncTask {
 
                     JSONObject jsonObjt = new JSONObject(JsonStr);
                     int quantidade = jsonObjt.getInt("quantidade");
-                    JSONArray jsonArray = jsonObjt.getJSONArray("projetos");
-
+                    JSONArray jsonArray = jsonObjt.getJSONArray("tarefas");
 
 
                     for (int i = 0; i < quantidade; i++) {
-                        Projeto projeto = new Projeto();
+                        Tarefa tarefa = new Tarefa();
 
-                        int id = jsonArray.getJSONObject(i).getInt("id");
-                        String nomeProjeto = jsonArray.getJSONObject(i).getString("nomeProjeto");
-                        int    quantTarefa = jsonArray.getJSONObject(i).getInt("quantTarefas");
-                        double progresso   = jsonArray.getJSONObject(i).getDouble("progresso");
+                        int id = jsonArray.getJSONObject(i).getInt("codigoT");
+                        String nomeTarefa = jsonArray.getJSONObject(i).getString("nomeTarefa");
+                        String data = jsonArray.getJSONObject(i).getString("data");
+                        int concluido = jsonArray.getJSONObject(i).getInt("concluido");
+                        int prioridade = jsonArray.getJSONObject(i).getInt("prioridade");
+                        String descricao = jsonArray.getJSONObject(i).getString("descricao");
+                        String nomeCriador = jsonArray.getJSONObject(i).getString("nomeCriador");
 
 
+                        tarefa.setId(id);
+                        tarefa.setNome(nomeTarefa);
+                        tarefa.setData(data);
+                        tarefa.setConcluido(concluido);
+                        tarefa.setPrioridade(prioridade);
+                        tarefa.setDescricao(descricao);
+                        tarefa.setNomeCriador(nomeCriador);
 
-                        projeto.setId(id);
-                        projeto.setNomeProjeto(nomeProjeto);
-                        projeto.setQuantTarefas(quantTarefa);
-                        projeto.setProgresso(progresso);
-
-                        projetos.add(i,projeto);
-
+                        tarefas.add(i, tarefa);
 
 
                     }
+                    return tarefas;
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+    return null;
     }
-
-
 }

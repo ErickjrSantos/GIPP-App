@@ -15,16 +15,19 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.admin.gipp_app.BancoLite.ProjetoLiteDAO;
+import com.example.admin.gipp_app.BancoLite.TarefaLiteDAO;
 import com.example.admin.gipp_app.Calendario.CalendarActivity;
 import com.example.admin.gipp_app.Connections.ConnectionListProjetos;
+import com.example.admin.gipp_app.Connections.ConnectionLojas;
 import com.example.admin.gipp_app.Modelo.Login;
+import com.example.admin.gipp_app.Modelo.Lojas;
 import com.example.admin.gipp_app.Modelo.Projeto;
+import com.example.admin.gipp_app.Modelo.Tarefa;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 
 public class MainActivity extends AppCompatActivity
@@ -41,15 +44,14 @@ public class MainActivity extends AppCompatActivity
         Login lg = Login.getInstance();
         prolist.execute(lg.getId());
 
-        //Lista de Projetos
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent vaiProFormulario = new Intent(MainActivity.this,FormularioActivity.class);
-
-               // startActivity(vaiProFormulario);
+                Intent vaiProFormulario = new Intent(MainActivity.this,FormularioActivity.class);
+                startActivity(vaiProFormulario);
             }
 
         });
@@ -64,23 +66,42 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    public void carregaLista(){
+    public void carregaBanco(){
+        ProjetoLiteDAO dao = new ProjetoLiteDAO(this);
         ConnectionListProjetos CLP = new ConnectionListProjetos();
+        CLP.execute(9);
+        ArrayList<Projeto> Projetos = CLP.projetos;
+        dao.insereProjeto(Projetos);
 
-        CLP.execute(Login.getInstance().getId());
 
-        //ArrayList<Projeto> Projetos = CLP.projetos;
-        ArrayList<String> AL = CLP.AL;
+    }
 
-        ListView ProjectList = (ListView) findViewById(R.id.listaDeProjetos);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, AL);
+    public void carregaLista(){
+        ProjetoLiteDAO dao = new ProjetoLiteDAO(this);
+        ArrayList<Projeto> Projetos = (ArrayList<Projeto>) dao.buscaProjetos();
+
+        final ListView ProjectList = (ListView) findViewById(R.id.listaDeProjetos);
+        ArrayAdapter<Projeto> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Projetos);
         ProjectList.setAdapter(arrayAdapter);
         ProjectList.setBackgroundColor(1);
+        ProjectList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Projeto projeto = (Projeto)ProjectList.getItemAtPosition(position);
+
+                Intent vaiPraListaDeTarefa = new Intent(MainActivity.this,ListaTarefaActivity.class);
+                vaiPraListaDeTarefa.putExtra("projeto", projeto);
+                startActivity(vaiPraListaDeTarefa);
+            }
+        });
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        carregaBanco();
         carregaLista();
     }
 

@@ -13,7 +13,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="title_app_nave">Ola, Fulano </string>
+    <string name="title_app_nave" > Ola, Fulano </string>
 
     <string name="title_activity_main">Projetos PEG PESE</string>
 
@@ -22,4 +22,5 @@
 
     <string name="action_settings">Configurações</string>
     <string name="title_activity_formulario">Novo Projeto</string>
+    <string name="title_activity_lista_tarefa">Lista de Tarefas</string>
 </resources>
