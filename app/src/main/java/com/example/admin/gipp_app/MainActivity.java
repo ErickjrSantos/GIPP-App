@@ -37,20 +37,11 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         ConnectionListProjetos prolist = new ConnectionListProjetos();
         Login lg = Login.getInstance();
         prolist.execute(lg.getId());
 
-
         //Lista de Projetos
-
-
-
-
-
-
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -59,17 +50,9 @@ public class MainActivity extends AppCompatActivity
                 //Intent vaiProFormulario = new Intent(MainActivity.this,FormularioActivity.class);
 
                // startActivity(vaiProFormulario);
-
             }
 
-
-
-
-
         });
-
-
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -77,33 +60,22 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
-
-
-
     }
 
-
-
     public void carregaLista(){
-        ConnectionListProjetos dao = new ConnectionListProjetos();
+        ConnectionListProjetos CLP = new ConnectionListProjetos();
 
+        CLP.execute(Login.getInstance().getId());
 
-        dao.execute(Login.getInstance().getId());
+        //ArrayList<Projeto> Projetos = CLP.projetos;
+        ArrayList<String> AL = CLP.AL;
 
-        List<Projeto> projestos = dao.projetos;
-
-               String teste = projestos.get(2).toString();
-
-
-        ListView listaProjetos = (ListView) findViewById(R.id.listaDeProjetos);
-        ArrayAdapter<Projeto> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, projestos);
-        listaProjetos.setAdapter(arrayAdapter);
+        ListView ProjectList = (ListView) findViewById(R.id.listaDeProjetos);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, AL);
+        ProjectList.setAdapter(arrayAdapter);
+        ProjectList.setBackgroundColor(1);
     }
 
     @Override
@@ -112,10 +84,6 @@ public class MainActivity extends AppCompatActivity
         carregaLista();
     }
 
-    /*private List<Projeto> preencherDados() {
-        ProjetoLiteDAO dao = new  ProjetoLiteDAO(this);
-        return dao.buscaProjetos();
-    }*/
 
 
     @Override

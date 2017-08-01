@@ -49,8 +49,6 @@ import static android.Manifest.permission.READ_CONTACTS;
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
-
-
     /**
      * Id to identity READ_CONTACTS permission request.
      */
@@ -74,8 +72,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -98,9 +94,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-
-
-
         Button mEmailSignInButton = (Button) findViewById(R.id.sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
 
@@ -112,8 +105,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 String password = mPasswordView.getText().toString();
                 String response;
 
-
-
                 try {
                     response = con.execute(user,password).get().toString();
                     Login nome = Login.getInstance();
@@ -122,9 +113,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     Intent vaiProMain = new Intent(LoginActivity.this,MainActivity.class);
                         Toast.makeText(LoginActivity.this,"Entrou como : " + nome.getNome(), Toast.LENGTH_LONG).show();
                         startActivity(vaiProMain);
-
-
-
 
                     }else{
                         Toast.makeText(LoginActivity.this,"Usuario ou senha ERRADOS ", Toast.LENGTH_LONG).show();

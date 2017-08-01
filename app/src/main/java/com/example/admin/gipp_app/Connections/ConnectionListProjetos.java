@@ -4,6 +4,7 @@ package com.example.admin.gipp_app.Connections;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.example.admin.gipp_app.BancoLite.ProjetoLiteDAO;
 import com.example.admin.gipp_app.MainActivity;
@@ -28,7 +29,9 @@ import java.util.List;
 public class ConnectionListProjetos extends AsyncTask {
 
     String url = "http://187.35.128.157:70/Android/projetos.php";
-    public List<Projeto> projetos = new ArrayList<>();
+    public ArrayList< String > AL = new ArrayList<>();
+    //public ArrayList<Projeto> projetos = new ArrayList<>();
+
     StringBuffer response = new StringBuffer();
 
     @Override
@@ -66,6 +69,7 @@ public class ConnectionListProjetos extends AsyncTask {
                     int quantidade = jsonObjt.getInt("quantidade");
                     JSONArray jsonArray = jsonObjt.getJSONArray("projetos");
 
+                    Projeto projeto = new Projeto();
 
                     for (int i = 0; i < quantidade; i++) {
 
@@ -74,20 +78,17 @@ public class ConnectionListProjetos extends AsyncTask {
                         int quantTarefa = jsonArray.getJSONObject(i).getInt("quantTarefas");
                         double progresso = jsonArray.getJSONObject(i).getDouble("progresso");
 
-                        Projeto projeto = new Projeto();
                         projeto.setId(id);
                         projeto.setNomeProjeto(nomeProjeto);
                         projeto.setQuantTarefas(quantTarefa);
                         projeto.setProgresso(progresso);
 
-                        projetos.add(projeto);
+                        //projetos.add(projeto);
 
-
-
-
+                        //funciona
+                        AL.add(projeto.toString());
 
                     }
-                    return projetos;
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -95,12 +96,10 @@ public class ConnectionListProjetos extends AsyncTask {
 
             }
 
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-return null;
+        return null;
     }
 
 

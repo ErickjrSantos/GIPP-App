@@ -18,13 +18,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <EditText
-                android:hint="Nome"
+                android:hint="Nome do Projeto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-            <EditText
-                android:hint="Descrição"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+
             <EditText
                 android:hint="Prazo"
                 android:layout_width="match_parent"
@@ -33,6 +30,10 @@
                 android:hint="Projeto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+            <EditText
+                android:hint="Descrição"
+                android:layout_width="match_parent"
+                android:layout_height="144dp" />
 
         </LinearLayout>
     </ScrollView>

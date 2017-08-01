@@ -28,9 +28,6 @@ public class ProjetoLiteDAO extends SQLiteOpenHelper {
     private  int    quantTarefas;
     private  int    progresso;
 
-
-
-
     @Override
     public void onCreate(SQLiteDatabase db) {
         String sql = "CREATE TABLE Projetos (id PRIMARY KEY, nomeProjeto TEXT NOT NULL, quantTarefas TEXT, progresso TEXT);";
@@ -48,10 +45,10 @@ public class ProjetoLiteDAO extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues dados = new ContentValues();
-        dados.put("id",Projeto.getId());
-        dados.put("nomeProjeto",Projeto.getNomeProjeto());
-        dados.put("quantTarefas",Projeto.getQuantTarefas());
-        dados.put("progresso",Projeto.getProgresso());
+        dados.put("id",projeto.getId());
+        dados.put("nomeProjeto",projeto.getNomeProjeto());
+        dados.put("quantTarefas",projeto.getQuantTarefas());
+        dados.put("progresso",projeto.getProgresso());
         db.insert("Projetos",null,dados);
 
     }

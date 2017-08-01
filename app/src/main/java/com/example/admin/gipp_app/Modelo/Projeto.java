@@ -8,31 +8,29 @@ import java.io.Serializable;
 
 public class Projeto implements Serializable{
 
-    private static int id;
-    private static  String nomeProjeto;
-    private static int quantTarefas;
-    private static double progresso;
+    private  int id;
+    private   String nomeProjeto;
+    private  int quantTarefas;
+    private  double progresso;
 
+    public  String getNomeProjeto() {return nomeProjeto;}
 
+    public  int getId() {return id;}
 
-    public static String getNomeProjeto() {return nomeProjeto;}
+    public  void setId(int id) {this.id = id;}
 
-    public static int getId() {return id;}
+    public  void setNomeProjeto(String nomeProjeto) {this.nomeProjeto = nomeProjeto;}
 
-    public static void setId(int id) {Projeto.id = id;}
+    public  int getQuantTarefas() {return quantTarefas;}
 
-    public static void setNomeProjeto(String nomeProjeto) {Projeto.nomeProjeto = nomeProjeto;}
+    public  void setQuantTarefas(int quantTarefas) {this.quantTarefas = quantTarefas;}
 
-    public static int getQuantTarefas() {return quantTarefas;}
+    public  double getProgresso() {return progresso;}
 
-    public static void setQuantTarefas(int quantTarefas) {Projeto.quantTarefas = quantTarefas;}
-
-    public static double getProgresso() {return progresso;}
-
-    public static void setProgresso(double progresso) {Projeto.progresso = progresso;}
+    public  void setProgresso(double progresso) {this.progresso = progresso;}
 
     @Override
     public String toString() {
-        return getId() +" - "+getNomeProjeto()+ "     " + getProgresso() ;
+        return getId() + " - " + getNomeProjeto() + " - " + (getProgresso() * 100) + "%" ;
     }
 }
