@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.admin.gipp_app.Connections.ConnectionListProjetos;
 import com.example.admin.gipp_app.Modelo.Projeto;
+import com.example.admin.gipp_app.Modelo.Tarefa;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +83,7 @@ public class ProjetoLiteDAO extends SQLiteOpenHelper {
         String sql = "SELECT * FROM Projetos";
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.rawQuery(sql,null);
-        List<Projeto> projetos = new ArrayList<Projeto>();
+        List<Projeto> projetos = new ArrayList<>();
         while (c.moveToNext()){
             Projeto projeto = new Projeto();
             projeto.setId(c.getInt(c.getColumnIndex("id")));

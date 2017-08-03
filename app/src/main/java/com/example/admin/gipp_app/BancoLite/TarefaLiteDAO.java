@@ -22,16 +22,16 @@ public class TarefaLiteDAO extends SQLiteOpenHelper{
     private long id;
     private String nomeTarefa;
     private String data;
+    private String descricao;
     private int concluido;
     private String prioridade;
+    private int projeto;
     private String nomeCriador;
 
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql =    "CREATE TABLE Tarefas (id PRIMARY KEY," +
-                        " nomeTarefa TEXT NOT NULL, data TEXT," +
-                        " concluido TEXT, prioridade TEXT, nomeCriador TEXT);";
+        String sql =    "CREATE TABLE Tarefas (id PRIMARY KEY, nomeTarefa TEXT NOT NULL, data TEXT,descricao TEXT, projeto TEXT, prioridade TEXT ,concluido TEXT, nomeCriador TEXT);";
                         db.execSQL(sql);
     }
 
@@ -46,39 +46,75 @@ public class TarefaLiteDAO extends SQLiteOpenHelper{
         if(!existeNoBanco(tarefa.getId())) {
             ContentValues dados = new ContentValues();
             dados.put("id", tarefa.getId());
-            dados.put("Nome",tarefa.getNome());
-            dados.put("Prazo", String.valueOf(tarefa.getData()));
-            dados.put("Descricao",tarefa.getDescricao());
-            dados.put("Projeto",tarefa.getProjeto());
+            dados.put("nomeTarefa",tarefa.getNome());
+            dados.put("data", String.valueOf(tarefa.getData()));
+            dados.put("descricao",tarefa.getDescricao());
+            dados.put("projeto",tarefa.getProjetoid());
             dados.put("Concluido",tarefa.isConcluido());
+            dados.put("prioridade",tarefa.getPrioridade());
+            dados.put("nomeCriador",tarefa.getNomeCriador());
             db.insert("Projetos", null, dados);
         }
     }
+    public void insereTarefa(ArrayList<Tarefa> tarefas){
+        SQLiteDatabase db = getWritableDatabase();
+        try {
+            for (int i = 0; i < tarefas.size(); i++) {
+
+                Tarefa tarefa = tarefas.get(i);
+                if (!existeNoBanco(tarefa.getId())) {
+                    ContentValues dados = new ContentValues();
+                    dados.put("id", tarefa.getId());
+                    dados.put("nomeTarefa", tarefa.getNome());
+                    dados.put("data", tarefa.getData());
+                    dados.put("descricao", tarefa.getDescricao());
+                    dados.put("projeto", tarefa.getProjetoid());
+                    dados.put("Concluido", tarefa.isConcluido());
+                    dados.put("prioridade", tarefa.getPrioridade());
+                    dados.put("nomeCriador", tarefa.getNomeCriador());
+
+                    db.insert("Tarefas", null, dados);
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
     private boolean existeNoBanco(long id){
-        String sql = "SELECT id FROM Tarefas WHERE id=" +id;
+        String sql = "SELECT projeto FROM Tarefas WHERE projeto=" +id;
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.rawQuery(sql,null);
 
         return c.getCount()>0;
     }
-    public List<Tarefa> buscaTarefa(){
-        String sql = "SELECT * FROM Tarefa";
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.rawQuery(sql,null);
-        List<Tarefa> tarefas = new ArrayList<Tarefa>();
-        while (c.moveToNext()){
-            Tarefa tarefa = new Tarefa();
-            tarefa.setId(c.getLong(c.getColumnIndex("id")));
-            tarefa.setNome(c.getString(c.getColumnIndex("Nome")));
-            tarefa.setData(c.getString(c.getColumnIndex("Prazo")));
-            tarefa.setDescricao(c.getString(c.getColumnIndex("Descricao")));
-            tarefa.setProjeto(c.getString(c.getColumnIndex("Projeto")));
-            tarefa.setConcluido(c.getInt(c.getColumnIndex("Descricao")));
+    public List<Tarefa> buscaTarefa(int projeto){
+        try {
+            String sql = "SELECT * FROM Tarefas WHERE projeto=" + projeto;
 
-            tarefas.add(tarefa);
+            SQLiteDatabase db = getReadableDatabase();
+            Cursor c = db.rawQuery(sql, null);
+            List<Tarefa> tarefas = new ArrayList<>();
+            while (c.moveToNext()) {
+                Tarefa tarefa = new Tarefa();
+
+                tarefa.setId(c.getLong(c.getColumnIndex("id")));
+                tarefa.setNome(c.getString(c.getColumnIndex("nomeTarefa")));
+                tarefa.setData(c.getString(c.getColumnIndex("data")));
+                tarefa.setDescricao(c.getString(c.getColumnIndex("descricao")));
+                tarefa.setProjetoid(c.getInt(c.getColumnIndex("projeto")));
+                tarefa.setConcluido(c.getInt(c.getColumnIndex("concluido")));
+                tarefa.setPrioridade(c.getInt(c.getColumnIndex("prioridade")));
+                tarefa.setNomeCriador(c.getString(c.getColumnIndex("nomeCriador")));
+
+                tarefas.add(tarefa);
+            }
+            c.close();
+            return tarefas;
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        c.close();
-        return tarefas;
-
+    return null;
     }
 }

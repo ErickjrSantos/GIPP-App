@@ -33,7 +33,7 @@ public class ConnectionListTarefas extends AsyncTask {
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
             con.setRequestMethod("POST");
 
-            String urlParameters = "id=" + objects[0];
+            String urlParameters = "pcod=" + objects[0];
 
             con.setDoOutput(true);
             DataOutputStream wr = new DataOutputStream(con.getOutputStream());
@@ -71,7 +71,7 @@ public class ConnectionListTarefas extends AsyncTask {
                         int concluido = jsonArray.getJSONObject(i).getInt("concluido");
                         int prioridade = jsonArray.getJSONObject(i).getInt("prioridade");
                         String descricao = jsonArray.getJSONObject(i).getString("descricao");
-                        String nomeCriador = jsonArray.getJSONObject(i).getString("nomeCriador");
+                        String nomeCriador = jsonArray.getJSONObject(i).getString("nomeCriadorT");
 
 
                         tarefa.setId(id);
@@ -86,7 +86,6 @@ public class ConnectionListTarefas extends AsyncTask {
 
 
                     }
-                    return tarefas;
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -96,6 +95,6 @@ public class ConnectionListTarefas extends AsyncTask {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    return null;
+    return tarefas;
     }
 }

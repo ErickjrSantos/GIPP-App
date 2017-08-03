@@ -91,8 +91,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             public void onClick(View view) {
 
                 Connection con = new Connection();
-                String user = mUserView.getText().toString();
-                String password = mPasswordView.getText().toString();
+                String user = "kyo";//mUserView.getText().toString();
+                String password = "5773";//mPasswordView.getText().toString();
                 String response;
 
                 try {

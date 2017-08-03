@@ -20,6 +20,7 @@ import com.example.admin.gipp_app.BancoLite.ProjetoLiteDAO;
 import com.example.admin.gipp_app.BancoLite.TarefaLiteDAO;
 import com.example.admin.gipp_app.Calendario.CalendarActivity;
 import com.example.admin.gipp_app.Connections.ConnectionListProjetos;
+import com.example.admin.gipp_app.Connections.ConnectionListTarefas;
 import com.example.admin.gipp_app.Connections.ConnectionLojas;
 import com.example.admin.gipp_app.Modelo.Login;
 import com.example.admin.gipp_app.Modelo.Lojas;
@@ -69,9 +70,15 @@ public class MainActivity extends AppCompatActivity
     public void carregaBanco(){
         ProjetoLiteDAO dao = new ProjetoLiteDAO(this);
         ConnectionListProjetos CLP = new ConnectionListProjetos();
-        CLP.execute(9);
+        TarefaLiteDAO Tdao = new TarefaLiteDAO(this);
+        Login id = Login.getInstance();
+
+        CLP.execute(id.getId());
         ArrayList<Projeto> Projetos = CLP.projetos;
+        ArrayList<Tarefa> Tarefas = CLP.tarefas;
         dao.insereProjeto(Projetos);
+        Tdao.insereTarefa(Tarefas);
+
 
 
     }
@@ -84,15 +91,18 @@ public class MainActivity extends AppCompatActivity
         ArrayAdapter<Projeto> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Projetos);
         ProjectList.setAdapter(arrayAdapter);
         ProjectList.setBackgroundColor(1);
-        ProjectList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
+        ProjectList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Projeto projeto = (Projeto)ProjectList.getItemAtPosition(position);
-
-                Intent vaiPraListaDeTarefa = new Intent(MainActivity.this,ListaTarefaActivity.class);
-                vaiPraListaDeTarefa.putExtra("projeto", projeto);
-                startActivity(vaiPraListaDeTarefa);
+                try {
+                    Intent vaiPraListaDeTarefa = new Intent(MainActivity.this, ListaTarefaActivity.class);
+                    vaiPraListaDeTarefa.putExtra("projeto", projeto);
+                    startActivity(vaiPraListaDeTarefa);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
 

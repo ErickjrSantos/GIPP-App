@@ -8,4 +8,11 @@
     tools:context="com.example.admin.gipp_app.ListaTarefaActivity"
     tools:showIn="@layout/activity_lista_tarefa">
 
+
+    <ListView
+        android:id="@+id/lista_de_tarefa"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp" />
 </android.support.constraint.ConstraintLayout>

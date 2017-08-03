@@ -8,23 +8,29 @@ public class Tarefa {
     private long id;
     private String nome;
     private String data;
-    private String projeto;
+    private int projetoid;
     private int concluido;
     private String descricao;
     private int prioridade;
+    private int quantEventos;
     private String nomeCriador;
 
     public Tarefa(){
 
     }
-    public Tarefa(String nome, String projeto,int concluido){
+    public Tarefa(String nome, int projetoid, int concluido){
         super();
         this.nome = nome;
-        this.projeto = projeto;
+        this.projetoid = projetoid;
         this.concluido = concluido;
     }
 
-    public long getId() {return id;}
+
+    public int getQuantEventos() {return quantEventos;}
+
+    public void setQuantEventos(int quantEventos) {this.quantEventos = quantEventos;}
+
+    public int getId() {return (int) id;}
 
     public void setId(long id) {this.id = id;}
 
@@ -44,12 +50,12 @@ public class Tarefa {
         this.concluido = concluido;
     }
 
-    public String getProjeto() {
-        return projeto;
+    public int getProjetoid() {
+        return projetoid;
     }
 
-    public void setProjeto(String projeto) {
-        this.projeto = projeto;
+    public void setProjetoid(int projetoid) {
+        this.projetoid = projetoid;
     }
 
     public String getData() {
