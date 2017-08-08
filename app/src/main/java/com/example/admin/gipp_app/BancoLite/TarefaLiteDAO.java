@@ -19,6 +19,7 @@ import java.util.List;
 
 public class TarefaLiteDAO extends SQLiteOpenHelper{
     private static final String teste = "meu teste";
+    private static final String erro = "meu teste";
 
     public TarefaLiteDAO(Context context) {
         super(context, "Tarefas", null, 2);
@@ -69,6 +70,7 @@ public class TarefaLiteDAO extends SQLiteOpenHelper{
             for (int i = 0; i < tarefas.size(); i++) {
                 Tarefa tarefa = tarefas.get(i); //*
 
+
                 if (!existeNoBanco(tarefa.getProjetoid())) {
                     ContentValues dados = new ContentValues();
                     dados.put("id", tarefa.getId());
@@ -82,11 +84,6 @@ public class TarefaLiteDAO extends SQLiteOpenHelper{
                     db.insert("Tarefas", null, dados);
 
 
-
-                    Log.i(teste,String.format("P: %d, T: %d", tarefa.getProjetoid(), tarefa.getId()));
-                    System.out.println(teste);
-                    System.out.print(String.format("P: %d, T: %d", tarefa.getProjetoid(), tarefa.getId()));
-
                 }
             }
         }catch(Exception e){
@@ -96,7 +93,7 @@ public class TarefaLiteDAO extends SQLiteOpenHelper{
     }
 
     private boolean existeNoBanco(long id){
-        String sql = "SELECT * FROM Tarefas WHERE projeto=" +id;
+        String sql = "SELECT id FROM Tarefas WHERE id=" +id;
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.rawQuery(sql,null);
 

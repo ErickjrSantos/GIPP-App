@@ -13,10 +13,162 @@
     tools:showIn="@layout/app_bar_main">
 
 
-    <ListView
-        android:id="@+id/listaDeProjetos"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical"
+
+        >
+        <TextView
+            android:id="@+id/em_progresso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minHeight="?android:attr/listPreferredItemHeight"
+            android:padding="20dp"
+            android:text="@string/section_1"
+            android:textColor="@android:color/white"
+            android:textAlignment="center"
+            android:background="@drawable/border"
+            />
+    <LinearLayout
+        android:id="@+id/section1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+
+
+        >
+
+        <ListView
+            android:id="@+id/listaDeProjetos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/concluido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:minHeight="?android:attr/listPreferredItemHeight"
+        android:padding="20dp"
+        android:text="@string/section_6"
+        android:textColor="@android:color/white"
+        android:background="@drawable/border"
+        android:textAlignment="center"
+
+        />
+    <LinearLayout
+        android:id="@+id/section2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
+
+        <ListView
+            android:id="@+id/listaDeProjetosCocluidos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+
+    </LinearLayout>
+        <TextView
+            android:id="@+id/Pendente"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minHeight="?android:attr/listPreferredItemHeight"
+            android:padding="20dp"
+            android:text="@string/section_3"
+            android:textColor="@android:color/white"
+            android:background="@drawable/border"
+            android:textAlignment="center"
+
+            />
+        <LinearLayout
+            android:id="@+id/section3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            >
+
+            <ListView
+                android:id="@+id/listaDeProjetosPendentes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                />
+
+        </LinearLayout>
+
+    <TextView
+        android:id="@+id/expirado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:minHeight="?android:attr/listPreferredItemHeight"
+        android:padding="20dp"
+        android:text="@string/section_4"
+        android:textColor="@android:color/white"
+        android:background="@drawable/border"
+        android:textAlignment="center"
+
+        />
+    <LinearLayout
+        android:id="@+id/section4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
+
+        <ListView
+            android:id="@+id/listaDeProjetosExpirado"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            />
+
+     </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/cancelado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:minHeight="?android:attr/listPreferredItemHeight"
+        android:padding="20dp"
+        android:text="@string/section_5"
+        android:textColor="@android:color/white"
+        android:background="@drawable/border"
+        android:textAlignment="center"
+
+        />
+    <LinearLayout
+        android:id="@+id/section5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
+
+        <ListView
+            android:id="@+id/listaDeProjetosCancelado"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+         </LinearLayout>
+
+    </LinearLayout>
+
+
 </RelativeLayout>

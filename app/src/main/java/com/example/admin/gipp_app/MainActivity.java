@@ -20,10 +20,7 @@ import com.example.admin.gipp_app.BancoLite.ProjetoLiteDAO;
 import com.example.admin.gipp_app.BancoLite.TarefaLiteDAO;
 import com.example.admin.gipp_app.Calendario.CalendarActivity;
 import com.example.admin.gipp_app.Connections.ConnectionListProjetos;
-import com.example.admin.gipp_app.Connections.ConnectionListTarefas;
-import com.example.admin.gipp_app.Connections.ConnectionLojas;
 import com.example.admin.gipp_app.Modelo.Login;
-import com.example.admin.gipp_app.Modelo.Lojas;
 import com.example.admin.gipp_app.Modelo.Projeto;
 import com.example.admin.gipp_app.Modelo.Tarefa;
 
@@ -33,6 +30,9 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
+    View progresso,concluido,pendente,expirado,cancelado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +44,77 @@ public class MainActivity extends AppCompatActivity
         ConnectionListProjetos prolist = new ConnectionListProjetos();
         Login lg = Login.getInstance();
         prolist.execute(lg.getId());
+
+
+        progresso = findViewById(R.id.section1);
+
+
+        View em_progresso = findViewById(R.id.em_progresso);
+        em_progresso.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (progresso.getVisibility() == View.GONE){
+                    progresso.setVisibility(View.VISIBLE);
+                }else {
+                    progresso.setVisibility(View.GONE);
+                }
+            }
+        });
+        concluido = findViewById(R.id.section2);
+
+         View em_concluido = findViewById(R.id.concluido);
+        em_concluido.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (concluido.getVisibility() == View.GONE){
+                    concluido.setVisibility(View.VISIBLE);
+                }else{
+                    concluido.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        pendente  = findViewById(R.id.section3);
+         View em_pendente = findViewById(R.id.Pendente);
+        em_pendente.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (pendente.getVisibility()== View.GONE){
+                    pendente.setVisibility(View.VISIBLE);
+                }else {
+                    pendente.setVisibility(View.GONE);
+                }
+            }
+        });
+        expirado =  findViewById(R.id.section4);
+        View em_expirado = findViewById(R.id.expirado);
+        em_expirado.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (expirado.getVisibility()== View.GONE){
+                    expirado.setVisibility(View.VISIBLE);
+                }else {
+                    expirado.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        cancelado  = findViewById(R.id.section5);
+
+        View em_cancelado = findViewById(R.id.cancelado);
+        em_cancelado.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (cancelado.getVisibility()== View.GONE){
+                    cancelado.setVisibility(View.VISIBLE);
+                }else {
+                    cancelado.setVisibility(View.GONE);
+                }
+            }
+        });
+
+
+
 
 
 
@@ -97,13 +168,19 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Projeto projeto = (Projeto)ProjectList.getItemAtPosition(position);
-                try {
-                    Intent vaiPraListaDeTarefa = new Intent(MainActivity.this, ListaTarefaActivity.class);
-                    vaiPraListaDeTarefa.putExtra("projeto", projeto);
-                    startActivity(vaiPraListaDeTarefa);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+
+
+                    try {
+                        Intent vaiPraListaDeTarefa = new Intent(MainActivity.this, ListaTarefaActivity.class);
+                        vaiPraListaDeTarefa.putExtra("projeto", projeto);
+                        startActivity(vaiPraListaDeTarefa);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+
+
+
+
             }
         });
 

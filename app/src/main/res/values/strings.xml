@@ -13,9 +13,14 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="title_app_nave" > Ola, Fulano </string>
+    <string name="title_app_nave"> Ola, Fulano </string>
 
     <string name="title_activity_main">Projetos PEG PESE</string>
+    <string name="section_1">Em Progresso</string>
+    <string name="section_6">Concluido</string>
+    <string name="section_3">Pendente</string>
+    <string name="section_4">Expirado</string>
+    <string name="section_5">Cancelado</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -23,4 +28,6 @@
     <string name="action_settings">Configurações</string>
     <string name="title_activity_formulario">Novo Projeto</string>
     <string name="title_activity_lista_tarefa">Lista de Tarefas</string>
+    <string name="title_activity_lista_pojetos_status">ListaPojetosStatus</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>
