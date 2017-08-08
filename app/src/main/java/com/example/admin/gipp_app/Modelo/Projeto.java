@@ -21,7 +21,8 @@ public class Projeto implements Serializable{
 
     public  void setNomeProjeto(String nomeProjeto) {this.nomeProjeto = nomeProjeto;}
 
-    public  int getQuantTarefas() {return quantTarefas;}
+    public  int getQuantTarefas() {return this.quantTarefas;}
+
 
     public  void setQuantTarefas(int quantTarefas) {this.quantTarefas = quantTarefas;}
 

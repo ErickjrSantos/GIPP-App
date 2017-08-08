@@ -80,6 +80,6 @@ public class Connection extends AsyncTask {
 
         }
 
-        return "1234";
+        return null;
     }
 }

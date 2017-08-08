@@ -80,7 +80,7 @@ public class ConnectionListProjetos extends AsyncTask {
                     for (int i = 0; i < quantidade; i++) {
                         Projeto projeto = new Projeto();
 
-                        int pid =             jsonArrayP.getJSONObject(i).getInt("pcodigo");
+                        int pid =            jsonArrayP.getJSONObject(i).getInt("pcodigo");
                         String nomeProjeto = jsonArrayP.getJSONObject(i).getString("nomeProjeto");
                         int quantTarefa =    jsonArrayP.getJSONObject(i).getInt("quantTarefas");
                         double progresso =   jsonArrayP.getJSONObject(i).getDouble("progresso");
@@ -122,7 +122,8 @@ public class ConnectionListProjetos extends AsyncTask {
                                 tarefa.setQuantEventos(quantEventos);
                                 tarefa.setProjetoid(pid);
 
-                                tarefas.add(j, tarefa);
+                                tarefas.add(j,tarefa);
+
                                 JSONArray jsonArrayE = jsonArrayT.getJSONObject(j).getJSONArray("eventos");
                                 try {
                                     for (int x = 0; x < quantEventos; x++) {

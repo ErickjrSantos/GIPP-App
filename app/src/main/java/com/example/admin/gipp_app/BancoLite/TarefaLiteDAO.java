@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import com.example.admin.gipp_app.Modelo.Projeto;
 import com.example.admin.gipp_app.Modelo.Tarefa;
 
 import java.util.ArrayList;
@@ -15,8 +18,10 @@ import java.util.List;
  */
 
 public class TarefaLiteDAO extends SQLiteOpenHelper{
+    private static final String teste = "meu teste";
+
     public TarefaLiteDAO(Context context) {
-        super(context, "Tarefas", null, 1);
+        super(context, "Tarefas", null, 2);
     }
 
     private long id;
@@ -46,23 +51,25 @@ public class TarefaLiteDAO extends SQLiteOpenHelper{
         if(!existeNoBanco(tarefa.getId())) {
             ContentValues dados = new ContentValues();
             dados.put("id", tarefa.getId());
-            dados.put("nomeTarefa",tarefa.getNome());
+            dados.put("nomeTarefa", tarefa.getNome());
             dados.put("data", String.valueOf(tarefa.getData()));
-            dados.put("descricao",tarefa.getDescricao());
-            dados.put("projeto",tarefa.getProjetoid());
-            dados.put("Concluido",tarefa.isConcluido());
-            dados.put("prioridade",tarefa.getPrioridade());
-            dados.put("nomeCriador",tarefa.getNomeCriador());
+            dados.put("descricao", tarefa.getDescricao());
+            dados.put("projeto", tarefa.getProjetoid());
+            dados.put("Concluido", tarefa.isConcluido());
+            dados.put("prioridade", tarefa.getPrioridade());
+            dados.put("nomeCriador", tarefa.getNomeCriador());
             db.insert("Projetos", null, dados);
+
         }
     }
     public void insereTarefa(ArrayList<Tarefa> tarefas){
         SQLiteDatabase db = getWritableDatabase();
         try {
-            for (int i = 0; i < tarefas.size(); i++) {
 
-                Tarefa tarefa = tarefas.get(i);
-                if (!existeNoBanco(tarefa.getId())) {
+            for (int i = 0; i < tarefas.size(); i++) {
+                Tarefa tarefa = tarefas.get(i); //*
+
+                if (!existeNoBanco(tarefa.getProjetoid())) {
                     ContentValues dados = new ContentValues();
                     dados.put("id", tarefa.getId());
                     dados.put("nomeTarefa", tarefa.getNome());
@@ -72,8 +79,14 @@ public class TarefaLiteDAO extends SQLiteOpenHelper{
                     dados.put("Concluido", tarefa.isConcluido());
                     dados.put("prioridade", tarefa.getPrioridade());
                     dados.put("nomeCriador", tarefa.getNomeCriador());
-
                     db.insert("Tarefas", null, dados);
+
+
+
+                    Log.i(teste,String.format("P: %d, T: %d", tarefa.getProjetoid(), tarefa.getId()));
+                    System.out.println(teste);
+                    System.out.print(String.format("P: %d, T: %d", tarefa.getProjetoid(), tarefa.getId()));
+
                 }
             }
         }catch(Exception e){
@@ -83,15 +96,16 @@ public class TarefaLiteDAO extends SQLiteOpenHelper{
     }
 
     private boolean existeNoBanco(long id){
-        String sql = "SELECT projeto FROM Tarefas WHERE projeto=" +id;
+        String sql = "SELECT * FROM Tarefas WHERE projeto=" +id;
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.rawQuery(sql,null);
 
         return c.getCount()>0;
     }
+
     public List<Tarefa> buscaTarefa(int projeto){
         try {
-            String sql = "SELECT * FROM Tarefas WHERE projeto=" + projeto;
+            String sql = "SELECT * FROM Tarefas WHERE projeto=" +projeto;
 
             SQLiteDatabase db = getReadableDatabase();
             Cursor c = db.rawQuery(sql, null);
