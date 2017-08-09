@@ -12,6 +12,11 @@ public class Projeto implements Serializable{
     private  String nomeProjeto;
     private  int quantTarefas;
     private  double progresso;
+    private  String status;
+
+    public String getStatus() {return status;}
+
+    public void setStatus(String status) {this.status = status;}
 
     public  String getNomeProjeto() {return nomeProjeto;}
 
@@ -32,6 +37,6 @@ public class Projeto implements Serializable{
 
     @Override
     public String toString() {
-        return getId() + " - " + getNomeProjeto() + " - " + (getProgresso() * 100) + "%" ;
+        return getStatus() + " - " + getNomeProjeto() + " - " + (getProgresso() * 100) + "%" ;
     }
 }

@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.admin.gipp_app.BancoLite.ProjetoLiteDAO;
 import com.example.admin.gipp_app.BancoLite.TarefaLiteDAO;
@@ -48,6 +49,8 @@ public class MainActivity extends AppCompatActivity
         Login lg = Login.getInstance();
         prolist.execute(lg.getId());
 
+        final Projeto projeto = new Projeto();
+
         progressoa = findViewById(R.id.section1);
         progressoa.setVisibility(View.GONE);
         concluidoa = findViewById(R.id.section2);
@@ -63,35 +66,8 @@ public class MainActivity extends AppCompatActivity
             em_progresso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (progressoa.getVisibility() == View.GONE)
-                {
+                if (progressoa.getVisibility() == View.GONE) {
                     progressoa.setVisibility(View.VISIBLE);
-
-                    ProjetoLiteDAO dao = new ProjetoLiteDAO(MainActivity.this);
-                    ArrayList<Projeto> Projetos = (ArrayList<Projeto>) dao.buscaProjetos();
-
-                    final ListView ProjectList = (ListView)findViewById(R.id.listaDeProjetos);
-                    ArrayAdapter<Projeto> arrayAdapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, Projetos);
-                    ProjectList.setAdapter(arrayAdapter);
-
-                    ProjectList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                            Projeto projeto = (Projeto)ProjectList.getItemAtPosition(position);
-
-
-                            try {
-                                Intent vaiPraListaDeTarefa = new Intent(MainActivity.this, ListaTarefaActivity.class);
-                                vaiPraListaDeTarefa.putExtra("projeto", projeto);
-                                startActivity(vaiPraListaDeTarefa);
-                            }catch (Exception e){
-                                e.printStackTrace();
-                            }
-
-                        }
-                    });
-
-
                 }else {
                     progressoa.setVisibility(View.GONE);
                 }
@@ -117,7 +93,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 if (pendentea.getVisibility()== View.GONE){
-
                     pendentea.setVisibility(View.VISIBLE);
                 }else {
                     pendentea.setVisibility(View.GONE);
@@ -186,46 +161,73 @@ public class MainActivity extends AppCompatActivity
         ArrayList<Tarefa> Tarefas = CLP.tarefas;
         dao.insereProjeto(Projetos);
         Tdao.insereTarefa(Tarefas);
-
-
-
     }
 
-   /* public void carregaLista(){
+    public void carregaLista(){
+
         ProjetoLiteDAO dao = new ProjetoLiteDAO(this);
+
         ArrayList<Projeto> Projetos = (ArrayList<Projeto>) dao.buscaProjetos();
 
-        final ListView ProjectList = (ListView)findViewById(R.id.listaDeProjetos);
+
+        final ListView ProjectList = (ListView) findViewById(R.id.listaDeProjetos);
         ArrayAdapter<Projeto> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Projetos);
         ProjectList.setAdapter(arrayAdapter);
 
-        ProjectList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        ProjectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Projeto projeto = (Projeto)ProjectList.getItemAtPosition(position);
-
+                Projeto projeto = (Projeto) ProjectList.getItemAtPosition(position);
 
                 try {
                     Intent vaiPraListaDeTarefa = new Intent(MainActivity.this, ListaTarefaActivity.class);
                     vaiPraListaDeTarefa.putExtra("projeto", projeto);
                     startActivity(vaiPraListaDeTarefa);
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-
-
 
             }
         });
 
-    }*/
+    }
+
+    public void carregaListaP(){
+
+        ProjetoLiteDAO dao = new ProjetoLiteDAO(this);
+
+        ArrayList<Projeto> Projetos = (ArrayList<Projeto>) dao.buscaProjetosPendentes();
+
+
+        final ListView ProjectList = (ListView) findViewById(R.id.listaDeProjetosPendentes);
+        ArrayAdapter<Projeto> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Projetos);
+        ProjectList.setAdapter(arrayAdapter);
+        try {
+            ProjectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                    Projeto projeto = (Projeto) ProjectList.getItemAtPosition(position);
+
+                    try {
+                        Intent vaiPraListaDeTarefa = new Intent(MainActivity.this, ListaTarefaActivity.class);
+                        vaiPraListaDeTarefa.putExtra("projeto", projeto);
+                        startActivity(vaiPraListaDeTarefa);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
         carregaBanco();
-        //carregaLista();
+        carregaLista();
+        carregaListaP();
     }
 
 

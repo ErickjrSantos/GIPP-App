@@ -84,12 +84,14 @@ public class ConnectionListProjetos extends AsyncTask {
                         String nomeProjeto = jsonArrayP.getJSONObject(i).getString("nomeProjeto");
                         int quantTarefa =    jsonArrayP.getJSONObject(i).getInt("quantTarefas");
                         double progresso =   jsonArrayP.getJSONObject(i).getDouble("progresso");
+                        String status =     jsonArrayP.getJSONObject(i).getString("status");
 
 
                         projeto.setId(pid);
                         projeto.setNomeProjeto(nomeProjeto);
                         projeto.setQuantTarefas(quantTarefa);
                         projeto.setProgresso(progresso);
+                        projeto.setStatus(status);
 
                         projetos.add(i, projeto);
 

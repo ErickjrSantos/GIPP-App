@@ -20,18 +20,20 @@ import java.util.List;
  */
 
 public class ProjetoLiteDAO extends SQLiteOpenHelper {
-    public ProjetoLiteDAO(Context context){
-        super(context,"Projetos",null, 1);
+    public ProjetoLiteDAO(Context context) {
+        super(context, "Projetos", null, 1);
 
     }
-    private  long   id;
-    private  String nomeProjeto;
-    private  int    quantTarefas;
-    private  int    progresso;
+
+    private long id;
+    private String nomeProjeto;
+    private int quantTarefas;
+    private int progresso;
+    private String status;
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "CREATE TABLE Projetos (id PRIMARY KEY, nomeProjeto TEXT NOT NULL, quantTarefas TEXT, progresso TEXT);";
+        String sql = "CREATE TABLE Projetos (id PRIMARY KEY, nomeProjeto TEXT NOT NULL, quantTarefas TEXT, progresso TEXT, status TEXT NOT NULL);";
         db.execSQL(sql);
     }
 
@@ -42,60 +44,113 @@ public class ProjetoLiteDAO extends SQLiteOpenHelper {
         onCreate(db);
 
     }
-    public void insereProjeto(Projeto projeto){
+
+    public void insereProjeto(Projeto projeto) {
         SQLiteDatabase db = getWritableDatabase();
-        if(!existeNoBanco(projeto.getId())) {
+        if (!existeNoBanco(projeto.getId())) {
             ContentValues dados = new ContentValues();
             dados.put("id", projeto.getId());
             dados.put("nomeProjeto", projeto.getNomeProjeto());
             dados.put("quantTarefas", projeto.getQuantTarefas());
             dados.put("progresso", projeto.getProgresso());
+            dados.put("status", projeto.getStatus());
             db.insert("Projetos", null, dados);
         }
     }
-    public void insereProjeto(ArrayList<Projeto> projetos){
+
+    public void insereProjeto(ArrayList<Projeto> projetos) {
         SQLiteDatabase db = getWritableDatabase();
 
-        for(int i=0; i < projetos.size(); i++) {
+        for (int i = 0; i < projetos.size(); i++) {
             Projeto projeto = projetos.get(i);
-            if(!existeNoBanco(projeto.getId())) {
+             if (!existeNoBanco(projeto.getId())){
                 ContentValues dados = new ContentValues();
                 dados.put("id", projeto.getId());
                 dados.put("nomeProjeto", projeto.getNomeProjeto());
                 dados.put("quantTarefas", projeto.getQuantTarefas());
                 dados.put("progresso", projeto.getProgresso());
+                dados.put("status", projeto.getStatus());
                 db.insert("Projetos", null, dados);
             }
         }
 
     }
-  private boolean existeNoBanco(int id){
-      String sql = "SELECT id FROM Projetos WHERE id=" +id;
-      SQLiteDatabase db = getReadableDatabase();
-      Cursor c = db.rawQuery(sql,null);
 
-      return c.getCount()>0;
+    private boolean existeNoBanco(int id) {
+        String sql = "SELECT id FROM Projetos WHERE id=" + id;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery(sql, null);
+
+        return c.getCount() > 0;
     }
 
 
 
-    public List<Projeto> buscaProjetos(){
-        String sql = "SELECT * FROM Projetos";
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.rawQuery(sql,null);
-        List<Projeto> projetos = new ArrayList<>();
-        while (c.moveToNext()){
-            Projeto projeto = new Projeto();
-            projeto.setId(c.getInt(c.getColumnIndex("id")));
-            projeto.setNomeProjeto(c.getString(c.getColumnIndex("nomeProjeto")));
-            projeto.setQuantTarefas(c.getInt(c.getColumnIndex("quantTarefas")));
-            projeto.setProgresso(c.getDouble(c.getColumnIndex("progresso")));
+    public List<Projeto> buscaProjetos() {
+        try {
+            String sql = "SELECT * FROM Projetos WHERE status='Em andamento';";
 
-            projetos.add(projeto);
+            SQLiteDatabase db = getReadableDatabase();
+            Cursor c = db.rawQuery(sql, null);
+            List<Projeto> projetos = new ArrayList<>();
+
+
+            while (c.moveToNext()) {
+
+                try {
+
+                    Projeto projeto = new Projeto();
+                    projeto.setId(c.getInt(c.getColumnIndex("id")));
+                    projeto.setNomeProjeto(c.getString(c.getColumnIndex("nomeProjeto")));
+                    projeto.setQuantTarefas(c.getInt(c.getColumnIndex("quantTarefas")));
+                    projeto.setProgresso(c.getDouble(c.getColumnIndex("progresso")));
+                    projeto.setStatus(c.getString(c.getColumnIndex("status")));
+
+                    projetos.add(projeto);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+            c.close();
+            return projetos;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        c.close();
-        return projetos;
+        return null;
+    }
+    public List<Projeto> buscaProjetosPendentes() {
+        try {
+           String sql = "SELECT * FROM Projetos WHERE status='Pendente de Aprovação'";
 
+            SQLiteDatabase db = getReadableDatabase();
+            Cursor c = db.rawQuery(sql, null);
+            List<Projeto> projetos = new ArrayList<>();
+
+
+            while (c.moveToNext()) {
+
+                try {
+
+                    Projeto projeto = new Projeto();
+                    projeto.setId(c.getInt(c.getColumnIndex("id")));
+                    projeto.setNomeProjeto(c.getString(c.getColumnIndex("nomeProjeto")));
+                    projeto.setQuantTarefas(c.getInt(c.getColumnIndex("quantTarefas")));
+                    projeto.setProgresso(c.getDouble(c.getColumnIndex("progresso")));
+                    projeto.setStatus(c.getString(c.getColumnIndex("status")));
+
+                    projetos.add(projeto);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+            c.close();
+            return projetos;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
