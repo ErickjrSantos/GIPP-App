@@ -9,5 +9,13 @@
         android:orderInCategory="100"
         android:icon="@drawable/ic_confirmar"
         app:showAsAction="always"/>
+    <item
+        android:id="@+id/voltar1"
+        android:title="voltar"
+        app:showAsAction="always"
+        android:orderInCategory="50"
+        android:icon="@drawable/esquerda"
+
+        />
 
 </menu>

@@ -23,21 +23,26 @@ public class FormularioActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if(id == R.menu.menu_formulario){
-            Toast.makeText(FormularioActivity.this,"Salvo",Toast.LENGTH_LONG);
-            finish();
+
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.formulario:
+                Toast.makeText(FormularioActivity.this,"Salvo",Toast.LENGTH_SHORT);
+                break;
+            case R.id.voltar1:
+                Toast.makeText(FormularioActivity.this,"volta",Toast.LENGTH_SHORT);
+                break;
         }
 
-        /*switch (item.getItemId()){
-            case R.menu.menu_formulario:
-                Toast.makeText(FormularioActivity.this,"Salvo",Toast.LENGTH_SHORT).show();
-                finish();
-                break;
-
-        }*/
-        return super.onOptionsItemSelected(item);
+        return super.onContextItemSelected(item);
     }
 }

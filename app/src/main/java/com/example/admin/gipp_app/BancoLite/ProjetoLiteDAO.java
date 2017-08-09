@@ -87,7 +87,7 @@ public class ProjetoLiteDAO extends SQLiteOpenHelper {
 
 
     public List<Projeto> buscaProjetos() {
-        try {
+
             String sql = "SELECT * FROM Projetos WHERE status='Em andamento';";
 
             SQLiteDatabase db = getReadableDatabase();
@@ -114,13 +114,9 @@ public class ProjetoLiteDAO extends SQLiteOpenHelper {
             }
             c.close();
             return projetos;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
     }
+    
     public List<Projeto> buscaProjetosPendentes() {
-        try {
            String sql = "SELECT * FROM Projetos WHERE status='Pendente de Aprovação'";
 
             SQLiteDatabase db = getReadableDatabase();
@@ -147,10 +143,7 @@ public class ProjetoLiteDAO extends SQLiteOpenHelper {
             }
             c.close();
             return projetos;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+
     }
 
 }

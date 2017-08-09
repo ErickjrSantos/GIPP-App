@@ -9,15 +9,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
-
 import com.example.admin.gipp_app.BancoLite.TarefaLiteDAO;
-import com.example.admin.gipp_app.Connections.ConnectionListProjetos;
-import com.example.admin.gipp_app.Connections.ConnectionListTarefas;
 import com.example.admin.gipp_app.Modelo.Projeto;
 import com.example.admin.gipp_app.Modelo.Tarefa;
-
 import java.util.ArrayList;
+
+
 
 public class ListaTarefaActivity extends AppCompatActivity {
 

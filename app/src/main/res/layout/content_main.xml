@@ -62,6 +62,9 @@
             android:id="@+id/listaDeProjetosCocluidos"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             />
 
 
@@ -89,7 +92,9 @@
                 android:id="@+id/listaDeProjetosPendentes"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 />
 
         </LinearLayout>
@@ -119,7 +124,9 @@
             android:id="@+id/listaDeProjetosExpirado"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             />
 
      </LinearLayout>
@@ -150,6 +157,9 @@
             android:id="@+id/listaDeProjetosCancelado"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             />
 
          </LinearLayout>

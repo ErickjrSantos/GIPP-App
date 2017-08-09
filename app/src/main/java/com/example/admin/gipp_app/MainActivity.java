@@ -15,9 +15,6 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.admin.gipp_app.BancoLite.ProjetoLiteDAO;
 import com.example.admin.gipp_app.BancoLite.TarefaLiteDAO;
 import com.example.admin.gipp_app.Calendario.CalendarActivity;
@@ -49,7 +46,6 @@ public class MainActivity extends AppCompatActivity
         Login lg = Login.getInstance();
         prolist.execute(lg.getId());
 
-        final Projeto projeto = new Projeto();
 
         progressoa = findViewById(R.id.section1);
         progressoa.setVisibility(View.GONE);
@@ -126,9 +122,6 @@ public class MainActivity extends AppCompatActivity
 
 
 
-
-
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,7 +195,7 @@ public class MainActivity extends AppCompatActivity
         final ListView ProjectList = (ListView) findViewById(R.id.listaDeProjetosPendentes);
         ArrayAdapter<Projeto> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Projetos);
         ProjectList.setAdapter(arrayAdapter);
-        try {
+
             ProjectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -217,9 +210,7 @@ public class MainActivity extends AppCompatActivity
                     }
                 }
             });
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+
     }
 
     @Override
