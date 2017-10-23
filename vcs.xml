@@ -30,8 +30,12 @@
           <option name="url" value="https://github.com/GBL147852/GOPP.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://github.com/GBL147852/GOPP" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
-    <option name="cloneParentDir" value="$USER_HOME$/Documentos" />
+    <option name="cloneParentDir" value="$USER_HOME$/Documentos/GOPP" />
   </component>
 </application>
