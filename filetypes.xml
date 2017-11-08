@@ -1,7 +1,9 @@
 <application>
   <component name="FileTypeManager" version="17">
     <extensionMap>
+      <removed_mapping ext="otf" type="Font" />
       <mapping ext="otf" type="Native" />
+      <mapping pattern="array" type="XML" />
     </extensionMap>
   </component>
 </application>
