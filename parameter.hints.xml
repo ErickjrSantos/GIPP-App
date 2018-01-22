@@ -1,0 +1,9 @@
+<application>
+  <component name="ParameterNameHintsSettings">
+    <blacklists>
+      <blacklist language="Java">
+        <added pattern="org.json.JSONObject.getString(name)" />
+      </blacklist>
+    </blacklists>
+  </component>
+</application>
