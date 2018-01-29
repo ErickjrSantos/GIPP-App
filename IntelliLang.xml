@@ -1,6 +1,10 @@
 <application>
   <component name="LanguageInjectionConfiguration">
     <injection language="JAVA" injector-id="xml">
+      <display-name>application</display-name>
+      <place><![CDATA[xmlTag().withLocalName(string().equalTo("application"))]]></place>
+    </injection>
+    <injection language="JAVA" injector-id="xml">
       <display-name>application/@theme</display-name>
       <place><![CDATA[xmlAttribute().withLocalName(string().equalTo("theme")).withNamespace(string().equalTo("http://schemas.android.com/apk/res/android")).withParent(xmlTag().withLocalName(string().equalTo("application")))]]></place>
     </injection>
