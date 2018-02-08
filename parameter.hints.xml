@@ -3,6 +3,7 @@
     <blacklists>
       <blacklist language="Java">
         <added pattern="org.json.JSONObject.getString(name)" />
+        <added pattern="android.app.ProgressDialog.ProgressDialog(context)" />
       </blacklist>
     </blacklists>
   </component>
