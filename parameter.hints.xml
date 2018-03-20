@@ -5,6 +5,7 @@
         <added pattern="org.json.JSONObject.getString(name)" />
         <added pattern="android.app.ProgressDialog.ProgressDialog(context)" />
         <added pattern="android.content.Intent.Intent(packageContext,cls)" />
+        <added pattern="java.lang.String.compareTo(anotherString)" />
       </blacklist>
     </blacklists>
   </component>
