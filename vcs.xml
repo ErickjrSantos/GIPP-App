@@ -54,4 +54,7 @@
     </option>
     <option name="cloneParentDir" value="$USER_HOME$/Documentos/GOPP/GOPP" />
   </component>
+  <component name="VcsApplicationSettings">
+    <option name="SHOW_LST_WORD_DIFFERENCES" value="false" />
+  </component>
 </application>
