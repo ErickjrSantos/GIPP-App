@@ -4,6 +4,7 @@
       <mapping ext="db-wal" type="SQL" />
       <mapping ext="db" type="SQL" />
       <mapping pattern="array" type="XML" />
+      <mapping ext="db-shm" type="YAML" />
     </extensionMap>
   </component>
 </application>
